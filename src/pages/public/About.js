@@ -4,9 +4,9 @@ import { FaFacebook, FaInstagram, FaPlay, FaTiktok, FaTwitter } from 'react-icon
 
 const About = () => {
   const data = [
-    { name: "Nguyễn Thị A", image: "person1.png" },
-    { name: "Trần Thị B", image: "person1.png" },
-    { name: "Nguyễn Thị C", image: "person1.png" },
+    { name: "236B Đ. Lê Văn Sỹ, Phường 1, Tân Bình, Hồ Chí Minh", image: "cn-1.jpg" },
+    { name: "236B Đ. Dương Quãng Hàm, Gò Vấp, Hồ Chí Minh", image: "cn-2.jpg" },
+    { name: "112A Đ. Lê Văn Sỹ, Phường 5, Tân Bình, Hồ Chí Minh", image: "cn-3.jpg" },
   ]
 
   return (
@@ -19,7 +19,7 @@ const About = () => {
               <div className="about-wrapper text-center">
                 <div className="about-contant">
                   <h2 className="title">
-                    <span>HDuong</span>
+                    <span>TDuong</span>
                     – Giới Thiệu
                   </h2>
                   <p>
@@ -45,8 +45,8 @@ const About = () => {
           <div className="row">
             <div className="col-12">
               <div className="section-title text-center">
-                <h2 className="title line-height-1">Nhân Sự</h2>
-                <p>Các thành viên trong HDuong</p>
+                <h2 className="title line-height-1">Chi nhánh</h2>
+                <p>Các chi nhánh khác </p>
               </div>
             </div>
           </div>
@@ -74,7 +74,7 @@ const About = () => {
                   <div className="team-inner">
                     <div className="team-content">
                       <h6 className="title">{member.name}</h6>
-                      <span className="sub-title">Thành Viên</span>
+                      <span className="sub-title">Chi nhánh</span>
                     </div>
                   </div>
                 </div>

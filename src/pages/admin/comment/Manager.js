@@ -63,16 +63,16 @@ const ProductCommentsTable = () => {
     const actionBodyTemplate = (rowData) => {
         return (
           <div>
-            <button onClick={() => setShowReply({commentId: rowData.commentId, productId: rowData?._id  })} className="btn btn-xs btn-success">
-              <FaEye/>
+            <button onClick={() => setShowReply({commentId: rowData.commentId, productId: rowData?._id  })} className="text-success">
+              <FaEye style={{fontSize: "20px"}}/>
             </button>
             <span className='mx-2'></span>
-            <button onClick={() => setIsReply({commentId: rowData.commentId, productId: rowData?._id, name: rowData?.postedByName })} className="btn btn-xs btn-primary">
-              <FaReply/>
+            <button onClick={() => setIsReply({commentId: rowData.commentId, productId: rowData?._id, name: rowData?.postedByName })} className="text-primary">
+              <FaReply style={{fontSize: "20px"}}/>
             </button>
             <span className='mx-2'></span>
-            <button className="btn btn-xs btn-danger" onClick={() => handleDeleteRating(rowData?._id, rowData?.commentId)}>
-              <FaTrash/>
+            <button className="text-danger" onClick={() => handleDeleteRating(rowData?._id, rowData?.commentId)}>
+              <FaTrash style={{fontSize: "20px"}}/>
             </button>
           </div>
         );
@@ -112,20 +112,26 @@ const ProductCommentsTable = () => {
   return (
     <div>
         {showReply &&
-            <div className='show-option shadow'>
+            <>
+            <div className="modal-overlay"></div>
+            <div className='dialog shadow'>
                 <ReplyManager
                     showReply={showReply}
                     setShowReply={setShowReply}
                 />
             </div>
+            </>
         }
         {isReply &&
-            <div className='show-option shadow'>
+             <>
+             <div className="modal-overlay"></div>
+             <div className='dialog shadow'>
                 <AdminReply
                     isReply={isReply}
                     setIsReply={setIsReply}
                 />
             </div>
+            </>
         }
       <div className="header">
         <div className="left">

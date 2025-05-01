@@ -50,7 +50,7 @@ const WordExport = ({ rid }) => {
             new TableRow({
                 children: [
                     new TableCell({ children: [new Paragraph("Tên sản phẩm")] }),
-                    new TableCell({ children: [new Paragraph("Biến thể")] }),
+                    new TableCell({ children: [new Paragraph("Màu sắc")] }),
                     new TableCell({ children: [new Paragraph("Giá")] }),
                     new TableCell({ children: [new Paragraph("Số lượng")] }),
                     new TableCell({ children: [new Paragraph("Tổng giá")] }),
@@ -60,7 +60,7 @@ const WordExport = ({ rid }) => {
                 new TableRow({
                     children: [
                         new TableCell({ children: [new Paragraph(product.name)] }),
-                        new TableCell({ children: [new Paragraph(product.variant)] }),
+                        new TableCell({ children: [new Paragraph(product.color)] }),
                         new TableCell({ children: [new Paragraph(product.price.toString())] }),
                         new TableCell({ children: [new Paragraph(product.quantity.toString())] }),
                         new TableCell({ children: [new Paragraph(product.totalPrice.toString())] }),
@@ -120,7 +120,7 @@ const WordExport = ({ rid }) => {
     };
 
     return (
-        <button className="btn btn-primary m-2" onClick={handleExport} disabled={!receipt}>Xuất Word</button>
+        <button className="btn bg-primary m-2" onClick={handleExport} disabled={!receipt}>Xuất Word</button>
     );
 };
 

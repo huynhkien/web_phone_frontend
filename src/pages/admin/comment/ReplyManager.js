@@ -59,7 +59,7 @@ const ProductCommentsTable = ({showReply, setShowReply}) => {
                   {selectRepId?.id === rowData?._id ?
                   (<>
                     <button 
-                    className="show-item-list btn btn-xs btn-primary"
+                    className="show-item-list text-primary"
                     onClick={handleAddReply}
                   >
                     <FaPlus />
@@ -69,7 +69,7 @@ const ProductCommentsTable = ({showReply, setShowReply}) => {
                     :
                     (
                       <button 
-                    className="show-item-list btn btn-xs btn-primary"
+                    className="show-item-list text-primary"
                     onClick={() => setSelectRepId({id: rowData?._id, postedByName: rowData?.postedByName})}
                   >
                     <FaReply />
@@ -79,7 +79,7 @@ const ProductCommentsTable = ({showReply, setShowReply}) => {
                   {selectEditRepId?.id === rowData?._id ?
                   (<>
                     <button 
-                    className="show-item-list btn btn-xs btn-primary"
+                    className="show-item-list text-primary"
                     onClick={handleUpdateReply}
                   >
                     <FaEdit />
@@ -89,7 +89,7 @@ const ProductCommentsTable = ({showReply, setShowReply}) => {
                     :
                     (
                       <button 
-                    className="show-item-list btn btn-xs btn-primary"
+                    className="show-item-list text-primary"
                     onClick={() => {setSelectEditRepId({id: rowData?._id, postedByName: rowData?.postedByName}); setReplyText(rowData.comment);}}
                   >
                     <FaEdit />
@@ -98,11 +98,11 @@ const ProductCommentsTable = ({showReply, setShowReply}) => {
                   }
               </div>
              )}
-              <button onClick={() => {setShowOption(prev => prev === rowData?._id ? null : rowData?._id ); setSelectRepId(null);} } className="btn btn-xs btn-primary">
+              <button onClick={() => {setShowOption(prev => prev === rowData?._id ? null : rowData?._id ); setSelectRepId(null);} } className="text-primary">
               <FaList/>
             </button>
             <span className='mx-2'></span>
-            <button className="btn btn-xs btn-danger" onClick={() => handleDeleteReply(rowData?._id)}>
+            <button className="text-danger" onClick={() => handleDeleteReply(rowData?._id)}>
               <FaTrash/>
             </button>
           </div>

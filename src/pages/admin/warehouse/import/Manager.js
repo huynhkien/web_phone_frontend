@@ -3,7 +3,7 @@ import { apiDeleteReceipt, apiDeleteSupplier, apiGetReceipts } from "../../../..
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import { CgDetailsMore } from "react-icons/cg";
 import { toast } from 'react-toastify';
 import moment from 'moment';
@@ -50,7 +50,7 @@ const ManagerImport = () => {
   const detailTemplate = (rowData) => {
     return (
       <div>
-        <button className="btn btn-xs btn-primary" onClick={() => setDetailReceipt(rowData._id)}>
+        <button className="text-primary" onClick={() => setDetailReceipt(rowData._id)}>
           <CgDetailsMore />
         </button>
       </div>
@@ -66,13 +66,13 @@ const ManagerImport = () => {
   const actionBodyTemplate = (rowData) => {
     return (
       <div>
-        <button className="btn btn-xs btn-primary" onClick={() => setEditReceipt(rowData?._id)}>
+        <button className="text-primary" onClick={() => setEditReceipt(rowData?._id)}>
           <FaEdit />
         </button>
         <span className='mx-2'></span>
         <button 
           onClick={() => handleDelete(rowData._id)} 
-          className="btn btn-xs btn-danger"
+          className="text-danger"
         >
           <FaTrash />
         </button>
@@ -106,27 +106,33 @@ const ManagerImport = () => {
         </div>
       </div>
       {detailReceipt &&
-      <div className='show-option shadow'>
-        <Detail
-          id={detailReceipt}
-          setShow={setDetailReceipt}
-        />
-      </div>
+      <>
+        <div className="modal-overlay"></div>
+        <div className='dialog shadow'>
+          <Detail
+            id={detailReceipt}
+            setShow={setDetailReceipt}
+          />
+        </div>
+      </>
       }
       {
         editReceipt && 
-        <div className='show-option shadow'>
-          <ImportEdit
-            editReceipt={editReceipt}
-            setEditReceipt={setEditReceipt}
-            fetchReceiptManager={fetchReceipt}
-          />
-        </div>
+        <>
+          <div className="modal-overlay"></div>
+          <div className='dialog shadow'>
+            <ImportEdit
+              editReceipt={editReceipt}
+              setEditReceipt={setEditReceipt}
+              fetchReceiptManager={fetchReceipt}
+            />
+          </div>
+        </>
       }
       <div className="bottom-data">
         <div className="orders">
-          <a href={'manager-import/add-receipt'} className="btn btn-primary" style={{ marginBottom: '30px' }}>
-            <i className="fa fa-plus"></i> Tạo phiếu nhập & xuất
+          <a href={'manager-import/add-receipt'} className="btn bg-primary" style={{ marginBottom: '20px' }}>
+            <i><FaPlus/></i> Tạo phiếu nhập & xuất
           </a>
           <DataTable 
             value={filteredReceipt} 
@@ -134,17 +140,17 @@ const ManagerImport = () => {
             rows={10} 
             dataKey="id" 
             loading={loading} 
-            emptyMessage="No receipts found."
+            emptyMessage="Không có phiếu nhập hoặc phiếu xuất."
             header={header}
           >
             <Column sortable field="_id" header="Mã phiếu nhập" />
             {/* <Column sortable field="handledBy" header="Nhân viên" />
             <Column sortable field="total" header="Tổng tiền" /> */}
             <Column body={detailTemplate} header="Chi tiết" />
-            <Column  sortable field="type" header="Loại" />
+            <Column sortable field="type" header="Loại" />
             {!isSmallScreen && <Column  sortable field="supplier" header="Đơn vị" />}
             {!isSmallScreen && <Column field="updatedAt" header="Ngày nhập" body={dateBodyTemplate} />}
-            <Column body={actionBodyTemplate} header="Action" />
+            <Column body={actionBodyTemplate} header="Thao tác" />
           </DataTable>
         </div>
       </div>

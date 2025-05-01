@@ -12,7 +12,7 @@ const Contact = () => {
                         <div class="col-12">
                             <div class="contact-form">
                                 <div class="contact-title mb-30">
-                                    <h2 class="title">Send A Quest</h2>
+                                    <h2 class="title">Gửi tin nhắn</h2>
                                 </div>
                                 <form class="contact-form-style" id="contact-form" action="" method="post">
                                     <div class="row">
@@ -30,7 +30,7 @@ const Contact = () => {
                                         </div>
                                         <div class="col-lg-12 text-center">
                                             <textarea name="message" placeholder="Your Message*"></textarea>
-                                            <button class="btn btn-primary" type="submit">Send Message</button>
+                                            <button class="btn btn-primary" type="submit">Gửi tin nhắn</button>
                                         </div>
                                     </div>
                                 </form>
@@ -45,8 +45,8 @@ const Contact = () => {
                                     </div>
                                     <div class="info-box">
                                         <h5 class="title">Địa chỉ</h5>
-                                        <p>Hồ Chí Minh City. <br/>
-                                        123 Dương Quãng Hàm, Gò Vấp</p>
+                                        <p>236B Đ. Lê Văn Sỹ, Phường 1, Tân Bình, <br/>
+                                        Hồ Chí Minh 700000, Việt Nam</p>
                                     </div>
                                 </div>
                                 <div class="single-contact">
@@ -79,8 +79,14 @@ const Contact = () => {
             <div id="mapid">
                 <div class="mapouter">
                     <div class="gmap_canvas">
-                        <iframe id="gmap_canvas" src="https://maps.google.com/maps?q=Ho%20Chi%20Minh%20City%2C%20Vietnam&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
-                        <a href="https://sites.google.com/view/maps-api-v2/mapv2"></a>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.1942409058915!2d106.66182677596588!3d10.79643023139953!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175292dd806cde3%3A0xeecc14dc4e208ec0!2zMjM2QiDEkC4gTMOqIFbEg24gU-G7uSwgUGjGsOG7nW5nIDEsIFTDom4gQsOsbmgsIEjhu5MgQ2jDrSBNaW5oIDcwMDAwMCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1746103485188!5m2!1svi!2s"
+                        width="600"
+                        height="450"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
                     </div>
                 </div>
             </div>

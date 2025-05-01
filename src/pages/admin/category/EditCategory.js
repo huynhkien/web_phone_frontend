@@ -81,7 +81,7 @@ const EditCategory = ({editCategory, setEditCategory, fetchCategories}) => {
       <div className="wg-box bg-light">
           <form className="form-new-product form-style-1" onSubmit={handleSubmit(onSubmit)}>
             <fieldset className="name">
-              <div className="body-title">Tên thương hiệu:</div>
+              <div className="body-title">Tên danh mục:</div>
               <input
                 type="text"
                 className="form-control"

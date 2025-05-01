@@ -129,7 +129,7 @@ const Form = ({editReceipt, setEditReceipt}) => {
   const actionBodyTemplate = (rowData) => (
     <button
       onClick={() => handleDelete(rowData.product, rowData.variant, rowData.name)}
-      className="btn btn-xs btn-danger"
+      className="text-danger"
     >
       <FaTrash />
     </button>
@@ -179,11 +179,13 @@ const Form = ({editReceipt, setEditReceipt}) => {
             >
               <Column sortable field="name" header="Sản phẩm" />
               <Column body={imageBodyTemplate} header="Ảnh" />
-              <Column sortable field="variant" header="Thuộc tính" />
+              <Column sortable field="color" header="Màu sắc" />
+              <Column sortable field="ram" header="Ram" />
+              <Column sortable field="rom" header="Rom" />
               <Column sortable field="quantity" header="Số lượng" />
               <Column sortable body={formatMoney} header="Giá" />
               <Column sortable body={formatTotalPrice} header="Tổng tiền" />
-              <Column body={actionBodyTemplate} header="Action" />
+              <Column body={actionBodyTemplate} header="Thao tác" />
             </DataTable>
           </div>
         </div>
@@ -300,7 +302,7 @@ const Form = ({editReceipt, setEditReceipt}) => {
               </div>
             )}
             <div className="mt-3 d-flex justify-content-center">
-              <button type="submit" className="btn btn-primary w-100">
+              <button type="submit" className="btn bg-primary w-100">
                 {editReceipt ? 'Cập nhật' : 'Tạo phiếu'}
               </button>
             </div>

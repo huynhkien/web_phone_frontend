@@ -4,14 +4,15 @@ import { createSearchParams, useNavigate, useParams, useSearchParams } from 'rea
 import { apiGetCategory, apiGetProducts } from '../../apis';
 import { sorts } from '../../utils/contant';
 
-const Categories = () => {
+const SearchValue = () => {
     const [products, setProducts] = useState([]);
     const [activeClick, setActiveClick] = useState(null);
     const [categories, setCategories] = useState(null);
     const [params] = useSearchParams();
     const [sort, setSort] = useState('');
     const navigate = useNavigate();
-    const { category } = useParams();
+    const { search} = useParams();
+    console.log(search);
     const fetchCategories = async () => {
       const response = await apiGetCategory();
       if(response?.success) setCategories(response?.data)
@@ -20,8 +21,9 @@ const Categories = () => {
         fetchCategories();
       },[])
     const fetchProductsByCategory = async(queries) => {
-      const response = await apiGetProducts({category, ...queries, limit: 6});
+      const response = await apiGetProducts({q: search, ...queries, limit: 6});
       if(response?.success) setProducts(response);
+      console.log(products.data)
     } 
     
     useEffect(() => {
@@ -49,7 +51,7 @@ const Categories = () => {
     
         fetchProductsByCategory(q);
         
-      }, [params, category]);
+      }, [params, search]);
 
     const changeActiveFilter = useCallback((name) => {
       if(activeClick === name) setActiveClick(null);
@@ -63,11 +65,11 @@ const Categories = () => {
     useEffect(() => {
       if(sort){
         navigate({
-          pathname: `/categories/${category}`,
+          pathname: `/product/${search}`,
           search: createSearchParams({sort}).toString()
         });
       }
-    }, [sort, category, navigate]);
+    }, [sort, search, navigate]);
 
   return (
     <div className="shop-category-area pt-100px pb-100px">
@@ -87,26 +89,26 @@ const Categories = () => {
                                     <div className="tab-content">
                                         <div className="tab-pane fade show active" id="shop-grid">
                                             <div className="row mb-n-30px">
-                                            {products?.counts > 0 ? (
-                                                  products?.data.map((el, index) => (
-                                                      <div className="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-30px" key={el._id || index}>
-                                                          <Product
-                                                              data={{
-                                                                  thumb: el?.thumb?.url,
-                                                                  thumb_variant: el?.variants[0]?.images[0]?.url,
-                                                                  name: el?.name,
-                                                                  category: el?.category,
-                                                                  price: el?.variants[0]?.price,
-                                                                  slug: el?.slug
-                                                              }}
-                                                          />
-                                                      </div>
-                                                  ))
-                                              ) : (
-                                                  <div className="col-12 text-center py-5">
-                                                      <p>Không có sản phẩm</p>
-                                                  </div>
-                                              )}
+                                              {products?.counts > 0 ? (
+                                                   products?.data.map((el, index) => (
+                                                       <div className="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-30px" key={el._id || index}>
+                                                           <Product
+                                                               data={{
+                                                                   thumb: el?.thumb?.url,
+                                                                   thumb_variant: el?.variants[0]?.images[0]?.url,
+                                                                   name: el?.name,
+                                                                   category: el?.category,
+                                                                   price: el?.variants[0]?.price,
+                                                                   slug: el?.slug
+                                                               }}
+                                                           />
+                                                       </div>
+                                                   ))
+                                               ) : (
+                                                   <div className="col-12 text-center py-5">
+                                                       <p>Không có sản phẩm</p>
+                                                   </div>
+                                               )}  
                                             </div>
                                         </div>
                                     </div>
@@ -146,4 +148,4 @@ const Categories = () => {
   )
 }
 
-export default Categories
+export default SearchValue

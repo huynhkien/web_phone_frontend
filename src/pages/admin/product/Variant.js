@@ -11,6 +11,8 @@ import { toast } from 'react-toastify';
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { MdCancel, MdDelete } from "react-icons/md";
 import { IoIosAddCircleOutline } from "react-icons/io";
+import { showModal } from "../../../store/app/appSlice";
+import { useDispatch } from "react-redux";
 
 const Variant = ({addVariant, setAddVariant, render}) => {
     const { register, handleSubmit, formState: { errors },  reset } = useForm();
@@ -18,6 +20,8 @@ const Variant = ({addVariant, setAddVariant, render}) => {
     const [loading, setLoading] = useState(true);
     const [globalFilter, setGlobalFilter] = useState('');
     const [editVariant, setEditVariant] = useState(null);
+    const dispatch = useDispatch();
+
     
     // State cho nhiều ảnh
     const [imagePreviews, setImagePreviews] = useState([]);
@@ -39,6 +43,13 @@ const Variant = ({addVariant, setAddVariant, render}) => {
         const previews = [];
         const validFiles = [];
         
+        // Kiểm tra nếu không có file nào được chọn
+        if (files.length === 0) return;
+        
+        // Xóa tất cả ảnh cũ khi tải lên ảnh mới
+        setImagePreviews([]);
+        setSelectedFiles([]);
+        
         for (let file of files) {
             if (file.type !== 'image/png' && file.type !== 'image/jpg' && file.type !== 'image/jpeg') {
                 toast.warning(`File ${file.name} không được hỗ trợ`);
@@ -49,23 +60,21 @@ const Variant = ({addVariant, setAddVariant, render}) => {
             validFiles.push(file);
         }
         
-        setImagePreviews(prev => [...prev, ...previews]);
-        setSelectedFiles(prev => [...prev, ...validFiles]);
+        // Lưu trữ chỉ những ảnh mới được chọn
+        setImagePreviews(previews);
+        setSelectedFiles(validFiles);
     };
     
-    // Xóa ảnh đã chọn
-    const removeImage = (index) => {
-        setImagePreviews(prev => prev.filter((_, i) => i !== index));
-        setSelectedFiles(prev => prev.filter((_, i) => i !== index));
-    };
     
     // Thêm biến thể với nhiều ảnh
     const handleCreateVariant = async (data) => {
         const payload = new FormData();
         payload.append('color', data.color);
-        payload.append('ram', data.ram);
-        payload.append('rom', data.rom);
-        payload.append('storage', data.storage);
+        if(editProduct?.type === 'Điện Thoại'){
+            payload.append('ram', data.ram);
+            payload.append('rom', data.rom);
+            payload.append('storage', data.storage);
+        }
         payload.append('price', data.price.replace(/,/g, ''));
         
         // Thêm nhiều ảnh
@@ -78,8 +87,10 @@ const Variant = ({addVariant, setAddVariant, render}) => {
             toast.warning('Vui lòng chọn ít nhất một ảnh');
             return;
         }
-        
+        dispatch(showModal({ isShowModal: true, modalType: 'loading' }));
         const response = await apiCreateVariant(payload, addVariant);
+        dispatch(showModal({ isShowModal: false, modalType: null }));
+
         if(response.success){
             toast.success(response.message);
             fetchProduct();
@@ -139,9 +150,11 @@ const Variant = ({addVariant, setAddVariant, render}) => {
     const handleUpdate = async(data) => {
         const payload = new FormData();
         payload.append('color', data.color);
-        payload.append('ram', data.ram);
-        payload.append('rom', data.rom);
-        payload.append('storage', data.storage);
+        if(editProduct?.type === 'Điện Thoại'){
+            payload.append('ram', data.ram);
+            payload.append('rom', data.rom);
+            payload.append('storage', data.storage);
+        }
         payload.append('price', data.price.toString().replace(/\./g, ''));
         
         // Thêm nhiều ảnh cho cập nhật
@@ -150,8 +163,13 @@ const Variant = ({addVariant, setAddVariant, render}) => {
                 payload.append('images', file);
             });
         }
-        
+        console.log(selectedFiles)
+        dispatch(showModal({ isShowModal: true, modalType: 'loading' }));
+    
         const response = await apiUpdateVariantId(addVariant, editVariant, payload);
+        
+        // Hide loading indicator
+        dispatch(showModal({ isShowModal: false, modalType: null }));
         if(response.success) {
             toast.success(response.message);
             fetchProduct();
@@ -241,6 +259,8 @@ const Variant = ({addVariant, setAddVariant, render}) => {
                                         required: 'Thông tin thiếu'
                                     }}
                                 />
+                                {editProduct?.type === 'Điện Thoại' &&
+                                <>
                                 <span className="mx-2"></span>
                                 <InputForm
                                     label='Ram:'
@@ -264,8 +284,12 @@ const Variant = ({addVariant, setAddVariant, render}) => {
                                         required: 'Thông tin thiếu'
                                     }}
                                 />
+                                </>
+                                }
                             </div>
                             <div className="d-flex justify-content-between mt-2">
+                                {editProduct?.type === 'Điện Thoại' &&
+                                <>
                                 <InputForm
                                     label='Dung lượng:'
                                     placeholder='Dung lượng'
@@ -277,6 +301,9 @@ const Variant = ({addVariant, setAddVariant, render}) => {
                                     }}
                                 />
                                 <span className="mx-2"></span>
+                                </>
+                                }
+                                
                                 <InputForm
                                     label='Giá:'
                                     placeholder='Giá'
@@ -318,13 +345,6 @@ const Variant = ({addVariant, setAddVariant, render}) => {
                                                             alt={image.name} 
                                                             style={{ width: '100px', height: '100px', objectFit: 'cover' }} 
                                                         />
-                                                        <button 
-                                                            type="button" 
-                                                            className="text-danger position-absolute top-0 end-0"
-                                                            onClick={() => removeImage(index)}
-                                                        >
-                                                            <MdDelete size={16} />
-                                                        </button>
                                                     </div>
                                                 ))}
                                             </div>
@@ -353,9 +373,13 @@ const Variant = ({addVariant, setAddVariant, render}) => {
                     >
                         <Column sortable field="sku" header="Mã" />
                         <Column sortable field="color" header="Màu sắc" />
-                        <Column sortable field="ram" header="Ram" />
-                        <Column sortable field="rom" header="Rom" />
-                        <Column sortable field="storage" header="Dung lượng" />
+                        {editProduct?.type === 'Điện Thoại' &&
+                        <>
+                            <Column sortable field="ram" header="Ram" />
+                            <Column sortable field="rom" header="Rom" />
+                            <Column sortable field="storage" header="Dung lượng" />
+                        </>
+                        }
                         <Column sortable field="price" header="Giá" />
                         <Column body={imageBodyTemplate} header="Ảnh đại diện" />
                         <Column body={actionBodyTemplate} header="Thao tác" />

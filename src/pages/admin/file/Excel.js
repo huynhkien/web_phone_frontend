@@ -67,7 +67,7 @@ const ExcelExport = ({ rid }) => {
     };
 
     return (
-        <button className="btn btn-success my-2" onClick={handleExport} disabled={!receipt}>Xuất Excel</button>
+        <button className="btn bg-success my-2" onClick={handleExport} disabled={!receipt}>Xuất Excel</button>
     );
 };
 

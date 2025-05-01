@@ -15,7 +15,7 @@ const Add = ({editReceipt}) => {
   const dispatch = useDispatch();
   const fetchProducts = async () => {
     const response = await apiGetProducts();
-    if(response.success) setProducts(response?.setData || []);
+    if(response?.success) setProducts(response?.data);
   }
 
   useEffect(() => {
@@ -24,34 +24,22 @@ const Add = ({editReceipt}) => {
   // Xử lý phía sản phẩm
   const handleProductChange = (event) => {
     const productId = event.target.value;
-    const product = products.find(p => p._id === productId);
+    const product = products.find(item => item?._id === productId);
     setSelectedProduct(product);
     
     let variantsArray = [];
     if (product?.variants && product?.variants.length > 0) {
       variantsArray = product.variants;
     }
-    
-    if (product.variant) {
-      variantsArray.push({ 
-        sku: product.sku, 
-        variant: product.variant, 
-        price: product.price ,
-        thumb: product.thumb
-      });
-    }
-    
     setVariants(variantsArray);
-    setSelectedVariant(null);
-    setValue('variant', '');
-    setValue('price', '');
   }
 
   const handleVariantChange = (event) => {
     const variantSku = event.target.value;
-    const variant = variants.find(v => v.variant === variantSku);
+    const variant = variants.find(v => v.sku === variantSku);
     setSelectedVariant(variant);
-    setValue('price', variant?.price || selectedProduct?.price || '');
+    console.log(selectedVariant);
+    setValue('price', variant?.price);
   }
 
   const handleCreate = async (data) => {
@@ -62,8 +50,11 @@ const Add = ({editReceipt}) => {
        {
         product: data.product,
         name: selectedProduct.name,
-        thumb: selectedVariant ? selectedVariant?.thumb : selectedProduct?.thumb,
-        variant: data.variant,
+        thumb: selectedVariant?.images[0],
+        color: selectedVariant?.color,
+        ram: selectedVariant?.ram,
+        rom: selectedVariant?.rom,
+        sku: selectedVariant.sku,
         price: price,
         quantity: quantity,
         totalPrice: totalPrice,
@@ -107,7 +98,7 @@ const Add = ({editReceipt}) => {
             <div className="card-body">
               <form onSubmit={handleSubmit(handleCreate)}>
                 <div className="row g-3">
-                  <div className="col-md-4">
+                  <div className="col-md-6">
                     <Select
                       label='Sản phẩm'
                       options={products?.map(el => ({ code: el._id, value: el.name }))}
@@ -120,20 +111,20 @@ const Add = ({editReceipt}) => {
                       className="form-select"
                     />
                   </div>
-                  <div className="col-md-4">
+                  <div className="col-md-6">
                     <Select
-                      label='Biến thể'
-                      options={variants.map(v => ({ code: v.variant, value: v.variant }))}
+                      label='Mã sản phẩm'
+                      options={variants.map(v => ({ code: v.sku, value: v.sku }))}
                       register={register}
-                      id='variant'
-                      name='Chọn biến thể'
+                      id='sku'
+                      name='Chọn mã sản phẩm'
                       errors={errors}
-                      validate={{ required: 'Vui lòng chọn biến thể' }}
+                      validate={{ required: 'Vui lòng chọn mã sản phẩm' }}
                       onChange={handleVariantChange}
                       className="form-select"
                     />
                   </div>
-                  <div className="col-md-4">
+                  <div className="col-md-6">
                     <InputForm
                       label='Giá'
                       placeholder='Giá'
@@ -145,7 +136,7 @@ const Add = ({editReceipt}) => {
                       className="form-control"
                     />
                   </div>
-                  <div className="col-md-4">
+                  <div className="col-md-6">
                     <InputForm
                       label='Số lượng'
                       type='number'
@@ -165,7 +156,7 @@ const Add = ({editReceipt}) => {
                     <h5 className="text-end">Thành tiền: <span className="text-primary">{totalPrice.toLocaleString()} VNĐ</span></h5>
                   </div>
                   <div className="col-md-6 text-end">
-                    <button type="submit" className="btn btn-primary">Thêm</button>
+                    <button type="submit" className="btn bg-primary">Thêm</button>
                   </div>
                 </div>
               </form>

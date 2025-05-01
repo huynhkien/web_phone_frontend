@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import {EditCategory} from '../../index';
 
 
-const Page = () => {
+const ManagerCategory = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [globalFilter, setGlobalFilter] = useState('');
@@ -91,13 +91,13 @@ const Page = () => {
             )}
       <div className="header">
         <div className="left">
-          <h1>Thương hiệu</h1>
+          <h1>Danh mục</h1>
         </div>
       </div>
       <div className="bottom-data">
         <div className="orders">
           <a href={`/admin/manager-category/add-category`} className="btn bg-primary" style={{ marginBottom: '20px' }}>
-            <i ><FaPlus/></i> Thêm thương hiệu
+            <i ><FaPlus/></i> Thêm danh mục
           </a>
           <DataTable
             value={categories} 
@@ -112,7 +112,7 @@ const Page = () => {
             <Column sortable field="name" header="Tên" />
             {!isSmallScreen && <Column sortable body={imageBodyTemplate} header="Hình ảnh" />}
             <Column sortable field="description" header="Mô tả" />
-            <Column body={actionBodyTemplate} header="Action" />
+            <Column body={actionBodyTemplate} header="Thao tác" />
           </DataTable>
         </div>
       </div>
@@ -120,4 +120,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default ManagerCategory;

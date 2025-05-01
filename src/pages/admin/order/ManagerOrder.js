@@ -69,11 +69,11 @@ const Page = () => {
     const actionBodyTemplate = (rowData) => {
         return (
             <div>
-                <button className="btn btn-xs btn-primary" onClick={() => setShowOrder(rowData.order._id)}>
+                <button className="text-primary" onClick={() => setShowOrder(rowData.order._id)}>
                     <BiDetail />
                 </button>
                 <span className='mx-1'></span>
-                <button className="btn btn-xs btn-primary" onClick={() => setUpdateStatus(rowData.order._id)}>
+                <button className="text-primary" onClick={() => setUpdateStatus(rowData.order._id)}>
                     <RxUpdate />
                 </button>
             </div>

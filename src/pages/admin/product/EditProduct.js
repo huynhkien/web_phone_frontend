@@ -135,7 +135,7 @@ const EditProduct = ({updateProduct, setUpdateProduct, fetchProducts}) => {
                 <div className="orders">
                     <div className="container">
                         <form onSubmit={handleSubmit(handleUpdateProduct)}>
-                            <div className="d-flex justify-content-between">
+                        <div className="d-flex justify-content-between">
                                 <InputForm
                                     label='Tên sản phẩm:'
                                     placeholder='Tên sản phẩm'
@@ -148,35 +148,11 @@ const EditProduct = ({updateProduct, setUpdateProduct, fetchProducts}) => {
                                 />
                                 <span className="mx-2"></span>
                                 <Select
-                                    label='Thương hiệu:'
-                                    options={categories?.map(el => ({ code: el.name, value: el.name }))}
-                                    register={register}
-                                    id='category'
-                                    name='Chọn thương hiệu'
-                                    errors={errors}
-                                    validate={{
-                                        required: 'Thông tin thiếu'
-                                    }}
-                                />
-                                <span className="mx-2"></span>
-                                <Select
-                                    label='Loại:'
+                                    label='Danh mục:'
                                     options={type_product?.map(el => ({ code: el.code, value: el.value }))}
                                     register={register}
                                     id='type'
-                                    name='Chọn loại'
-                                    errors={errors}
-                                    validate={{
-                                        required: 'Thông tin thiếu'
-                                    }}
-                                />
-                                <span className="mx-2"></span>
-                                <Select
-                                    label='Chất liệu:'
-                                    options={material?.map(el => ({ code: el?.code, value: el?.value }))}
-                                    register={register}
-                                    id='material'
-                                    name='Chất liệu sản phẩm'
+                                    name='Chọn danh mục'
                                     errors={errors}
                                     validate={{
                                         required: 'Thông tin thiếu'
@@ -196,11 +172,37 @@ const EditProduct = ({updateProduct, setUpdateProduct, fetchProducts}) => {
                                 />
                                 <span className="mx-2"></span>
                                 <Select
+                                    label='Thương hiệu:'
+                                    options={categories?.map(el => ({ code: el.name, value: el.name }))}
+                                    register={register}
+                                    id='category'
+                                    name='Thương hiệu'
+                                    errors={errors}
+                                    validate={{
+                                        required: 'Thông tin thiếu'
+                                    }}
+                                />
+                                <span className="mx-2"></span>
+                                <Select
                                     label='Tình trạng:'
                                     options={status?.map(el => ({ code: el.code, value: el.value }))}
                                     register={register}
                                     id='status'
-                                    name='Tình trạng thiết bị'
+                                    name='Tình trạng'
+                                    errors={errors}
+                                    validate={{
+                                        required: 'Thông tin thiếu'
+                                    }}
+                                />
+
+                            </div>
+                            <div className="d-flex justify-content-between mt-2">
+                                <Select
+                                    label='Chất liệu:'
+                                    options={material?.map(el => ({ code: el?.code, value: el?.value }))}
+                                    register={register}
+                                    id='material'
+                                    name='Chất liệu sản phẩm'
                                     errors={errors}
                                     validate={{
                                         required: 'Thông tin thiếu'
@@ -218,44 +220,139 @@ const EditProduct = ({updateProduct, setUpdateProduct, fetchProducts}) => {
                                         required: 'Thông tin thiếu'
                                     }}
                                 />
+                                {editProduct?.type === 'Linh kiện điện tử' &&
+                                <>
+                                    <span className="mx-2"></span>
+                                    <InputForm
+                                        label='Kích thước:'
+                                        placeholder='Kích thước'
+                                        register={register}
+                                        errors={errors}
+                                        id='size'
+                                        validate={{
+                                            required: 'Thông tin thiếu'
+                                        }}
+                                    />
+                                </>
+                                }
                             </div>
+                            {editProduct?.type === 'Điện Thoại' &&
+                                <>
+                                    <div className="d-flex justify-content-between mt-2">
+                                        <InputForm
+                                            label='Camera trước:'
+                                            type="number"
+                                            placeholder='Chất lượng camera trước'
+                                            register={register}
+                                            errors={errors}
+                                            id='front_camera'
+                                            validate={{
+                                                required: 'Thông tin thiếu'
+                                            }}
+                                        />
+                                        <span className="mx-2"></span>
+                                        <InputForm
+                                            label='Camera sau:'
+                                            type="number"
+                                            placeholder='Chất lượng camera sau'
+                                            register={register}
+                                            errors={errors}
+                                            id='rear_camera'
+                                            validate={{
+                                                required: 'Thông tin thiếu'
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="d-flex justify-content-between mt-2">
+                                        <InputForm
+                                            label='Kích thước màn hình:'
+                                            placeholder='Kích thước màn hình'
+                                            register={register}
+                                            errors={errors}
+                                            id='size'
+                                            validate={{
+                                                required: 'Thông tin thiếu'
+                                            }}
+                                        />
+                                        <span className="mx-2"></span>
+                                        <Select
+                                            label='Công nghệ màn hình:'
+                                            options={technology_screen?.map(el => ({ code: el.code, value: el.value }))}
+                                            register={register}
+                                            id='screen_technology'
+                                            name='Công nghệ màn hình'
+                                            errors={errors}
+                                            validate={{
+                                                required: 'Thông tin thiếu'
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="d-flex justify-content-between mt-2">
+                                        <Select
+                                            label='CPU:'
+                                            options={cpu?.map(el => ({ code: el.code, value: el.value }))}
+                                            register={register}
+                                            id='cpu'
+                                            name='Dung lượng CPU'
+                                            errors={errors}
+                                            validate={{
+                                                required: 'Thông tin thiếu'
+                                            }}
+                                        />
+                                        <span className="mx-2"></span>
+                                        <Select
+                                            label='GPU:'
+                                            options={gpu?.map(el => ({ code: el.code, value: el.value }))}
+                                            register={register}
+                                            id='gpu'
+                                            name='Dung lượng GPU'
+                                            errors={errors}
+                                            validate={{
+                                                required: 'Thông tin thiếu'
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="d-flex justify-content-between mt-2">
+                                        <InputForm
+                                            label='Dung lượng pin:'
+                                            type="number"
+                                            placeholder='Dung dung lượng pin:'
+                                            register={register}
+                                            errors={errors}
+                                            id='battery'
+                                            validate={{
+                                                required: 'Thông tin thiếu'
+                                            }}
+                                        />
+                                        <span className="mx-2"></span>
+                                        <InputForm
+                                            label='Hỗ trợ sạc:'
+                                            type="number"
+                                            placeholder='Hỗ trợ sạc'
+                                            register={register}
+                                            errors={errors}
+                                            id='charger_support'
+                                            validate={{
+                                                required: 'Thông tin thiếu'
+                                            }}
+                                        />
+                                        <span className="mx-2"></span>
+                                        <Select
+                                            label='Hệ điều hành:'
+                                            options={os?.map(el => ({ code: el.code, value: el.value }))}
+                                            register={register}
+                                            id='os'
+                                            name='Chọn hệ điều hành'
+                                            errors={errors}
+                                            validate={{
+                                                required: 'Thông tin thiếu'
+                                            }}
+                                        />
+                                    </div>
+                                    
+                                </>
+                            }
                             <div className="d-flex justify-content-between mt-2">
-                                <InputForm
-                                    label='Camera trước:'
-                                    type="number"
-                                    placeholder='Chất lượng camera trước'
-                                    register={register}
-                                    errors={errors}
-                                    id='front_camera'
-                                    validate={{
-                                        required: 'Thông tin thiếu'
-                                    }}
-                                />
-                                <span className="mx-2"></span>
-                                <InputForm
-                                    label='Camera sau:'
-                                    type="number"
-                                    placeholder='Chất lượng camera sau'
-                                    register={register}
-                                    errors={errors}
-                                    id='rear_camera'
-                                    validate={{
-                                        required: 'Thông tin thiếu'
-                                    }}
-                                />
-                            </div>
-                            <div className="d-flex justify-content-between mt-2">
-                                <InputForm
-                                    label='Kích thước màn hình:'
-                                    placeholder='Kích thước màn hình'
-                                    register={register}
-                                    errors={errors}
-                                    id='size'
-                                    validate={{
-                                        required: 'Thông tin thiếu'
-                                    }}
-                                />
-                                <span className="mx-2"></span>
                                 <InputForm
                                     label='Trọng lượng:'
                                     placeholder='Trọng lượng sản phẩm'
@@ -267,81 +364,6 @@ const EditProduct = ({updateProduct, setUpdateProduct, fetchProducts}) => {
                                     }}
                                 />
                                 <span className="mx-2"></span>
-                                <Select
-                                    label='Công nghệ màn hình:'
-                                    options={technology_screen?.map(el => ({ code: el.code, value: el.value }))}
-                                    register={register}
-                                    id='screen_technology'
-                                    name='Công nghệ màn hình'
-                                    errors={errors}
-                                    validate={{
-                                        required: 'Thông tin thiếu'
-                                    }}
-                                />
-                            </div>
-                            <div className="d-flex justify-content-between mt-2">
-                                <Select
-                                    label='CPU:'
-                                    options={cpu?.map(el => ({ code: el.code, value: el.value }))}
-                                    register={register}
-                                    id='cpu'
-                                    name='Dung lượng CPU'
-                                    errors={errors}
-                                    validate={{
-                                        required: 'Thông tin thiếu'
-                                    }}
-                                />
-                                <span className="mx-2"></span>
-                                <Select
-                                    label='GPU:'
-                                    options={gpu?.map(el => ({ code: el.code, value: el.value }))}
-                                    register={register}
-                                    id='gpu'
-                                    name='Dung lượng GPU'
-                                    errors={errors}
-                                    validate={{
-                                        required: 'Thông tin thiếu'
-                                    }}
-                                />
-                            </div>
-                            <div className="d-flex justify-content-between mt-2">
-                                <InputForm
-                                    label='Dung lượng pin:'
-                                    type="number"
-                                    placeholder='Dung dung lượng pin:'
-                                    register={register}
-                                    errors={errors}
-                                    id='battery'
-                                    validate={{
-                                        required: 'Thông tin thiếu'
-                                    }}
-                                />
-                                <span className="mx-2"></span>
-                                <InputForm
-                                    label='Hỗ trợ sạc:'
-                                    type="number"
-                                    placeholder='Hỗ trợ sạc'
-                                    register={register}
-                                    errors={errors}
-                                    id='charger_support'
-                                    validate={{
-                                        required: 'Thông tin thiếu'
-                                    }}
-                                />
-                                <span className="mx-2"></span>
-                                <Select
-                                    label='Hệ điều hành:'
-                                    options={os?.map(el => ({ code: el.code, value: el.value }))}
-                                    register={register}
-                                    id='os'
-                                    name='Chọn hệ điều hành'
-                                    errors={errors}
-                                    validate={{
-                                        required: 'Thông tin thiếu'
-                                    }}
-                                />
-                            </div>
-                            <div className="mt-2">
                                 <Select
                                     label='Bảo hành:'
                                     options={warranty?.map(el => ({ code: el.code, value: el.value }))}

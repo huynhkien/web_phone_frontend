@@ -4,8 +4,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
 import { MdCancel } from 'react-icons/md';
-import ExcelExport from '../file/Excel';
-import { ExportWord } from '../../index';
+import { ExportExcel, ExportWord } from '../../index';
 
 const DetailReceipt = ({ id, setShow }) => {
   const [receipt, setReceipt] = useState(null);
@@ -14,16 +13,15 @@ const DetailReceipt = ({ id, setShow }) => {
 
   const fetchReceipt = async () => {
     const response = await apiGetReceipt(id);
-    if (response.success) {
-      setReceipt(response.data);
+    if (response?.success) {
+      setReceipt(response?.data);
     }
     setLoading(false);
   };
 
   useEffect(() => {
     fetchReceipt();
-    console.log(receipt)
-  }, [id]);
+  }, []);
   // Hàm hiển thị hình ảnh trong cột
   const imageBodyTemplate = (rowData) => (
       <img src={rowData?.thumb?.url} alt={rowData.product} style={{ width: '50px', height: '50px' }} />
@@ -38,10 +36,10 @@ const DetailReceipt = ({ id, setShow }) => {
 
   // Lọc sản phẩm dựa trên globalFilter
   const filteredProducts = receipt?.products.filter((product) => {
-    const nameMatch = product.name.toLowerCase().includes(globalFilter.toLowerCase());
-    const variantMatch = product.variant.toLowerCase().includes(globalFilter.toLowerCase());
+    const nameMatch = product?.name.toLowerCase().includes(globalFilter.toLowerCase());
+    const colorMatch = product?.color.toLowerCase().includes(globalFilter.toLowerCase());
 
-    return nameMatch || variantMatch;
+    return nameMatch || colorMatch;
   }) || [];
 
   const header = (
@@ -61,8 +59,8 @@ const DetailReceipt = ({ id, setShow }) => {
           <span onClick={() => setShow(null)} ><MdCancel color='primary' fontSize={25}/></span>
         </div>
         <div className="orders">
-          <div>
-            <ExcelExport
+          <div className='d-flex'>
+            <ExportExcel
              rid={id}
             />
             <ExportWord
@@ -95,7 +93,9 @@ const DetailReceipt = ({ id, setShow }) => {
           >
             <Column sortable field="name" header="Sản phẩm" />
             <Column body={imageBodyTemplate} header="Ảnh" />
-            <Column sortable field="variant" header="Biến thể" />
+            <Column sortable field="color" header="Màu sắc" />
+            <Column sortable field="ram" header="Ram" />
+            <Column sortable field="rom" header="Rom" />
             <Column sortable field="quantity" header="Số lượng" />
             <Column sortable body={priceBodyTemplate} header="Giá" />
             <Column sortable body={priceTotalBodyTemplate} header="Tổng tiền" />

@@ -57,20 +57,20 @@ const AddCategory = () => {
     <div>
       <div className="header mb-3">
         <div className="left">
-          <h1>Thương Hiệu</h1>
+          <h1>Danh Mục</h1>
         </div>
       </div>
       <div className="wg-box bg-light">
         <form className="form-new-product form-style-1" onSubmit={handleSubmit(onSubmit)} >
           <fieldset className="name">
-            <div className="body-title">Tên thương hiệu:</div>
+            <div className="body-title">Tên danh mục:</div>
             <input
               type="text"
               className="form-control"
               id="categoryName"
               name="categoryName"
-              placeholder="Nhập tên thương hiệu"
-              {...register('name', { required: 'Thiếu tên thương hiệu' })}
+              placeholder="Nhập tên danh mục"
+              {...register('name', { required: 'Thiếu tên danh mục' })}
             />
             {errors.name && <small>{errors.name.message}</small>}
           </fieldset>
@@ -101,8 +101,8 @@ const AddCategory = () => {
               rows={10}
               id="description"
               name="description"
-              placeholder="Enter description"
-              {...register('description', { required: 'Description is required' })}
+              placeholder="Nhập mô tả"
+              {...register('mô tả', { required: 'Thiếu mô tả' })}
             ></textarea>
             {errors.description && <small>{errors.description.message}</small>}
           </fieldset>

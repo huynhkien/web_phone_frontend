@@ -136,7 +136,6 @@ const ManagerProduct = () => {
             {!isSmallScreen && <Column sortable field="origin" header="Nguồn gốc" />}
             {!isSmallScreen && <Column sortable field="status" header="Tình trạng" />}
             {!isSmallScreen && <Column sortable field="warranty" header="Bảo hành" />}
-            <Column sortable field="os" header="HĐH" />
             <Column body={variantBodyTemplate} header="Thêm biến thể" />
             <Column body={actionBodyTemplate} header="Action" />
           </DataTable>
