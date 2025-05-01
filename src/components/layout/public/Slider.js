@@ -15,7 +15,7 @@ const Slider = () => {
     },
     {
         image: "banner2.png",
-        tittle: "HDuong cam kết cung cấp các sản phẩm chính hãng",
+        tittle: "TDuong cam kết cung cấp các sản phẩm chính hãng",
         text: "Chính sách bảo hành với các sản phẩm chính hãng"
     },
     {
@@ -40,7 +40,7 @@ const Slider = () => {
                             <div className='row align-items-center'>
                                 <div className='col-xxl-5 col-xl-6 col-lg-6 col-md-6 col-sm-7'>
                                     <div className='tpslider__content'>
-                                    <span className='tpslider__sub-title'>Chào mừng khách hàng đến với HDuong</span>
+                                    <span className='tpslider__sub-title'>Chào mừng khách hàng đến với TDuong</span>
                                     <h2 className='tpslider__title'>{el?.tittle}</h2>
                                     <p>{el?.text}</p>
                                     <div className='tpslider__btn'>

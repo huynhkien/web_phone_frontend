@@ -1,6 +1,6 @@
 import React from 'react'
 import { CiFacebook, CiTwitter, CiYoutube } from "react-icons/ci";
-import { FaTiktok } from "react-icons/fa";
+import { FaHeart, FaTiktok } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -12,7 +12,7 @@ const Footer = () => {
                       <div class="col-md-6 col-lg-3 mb-md-30px mb-lm-30px">
                           <div class="single-wedge">
                               <div class="footer-logo">
-                                  <a href="index.html"><img src="logo.png" alt="logo footer"/></a>
+                                  <a href="index.html"><img src="/logo.png" alt="logo footer"/></a>
                               </div>
                               <p class="about-text">DPhone chuyên cung cấp các dòng smartphone chính hãng với giá tốt, dịch vụ giao hàng nhanh, bảo hành rõ ràng và hỗ trợ khách hàng tận tâm.
                               </p>
@@ -81,11 +81,11 @@ const Footer = () => {
                   <div class="line-shape-top line-height-1">
                       <div class="row flex-md-row-reverse align-items-center">
                           <div class="col-md-6 text-center text-md-end">
-                              <div class="payment-mth"><a href="/"><img class="img img-fluid" src="payment.png" alt="payment-image"/></a></div>
+                              <div class="payment-mth"><a href="/"><img class="img img-fluid" src="/payment.png" alt="payment-image"/></a></div>
                           </div>
                           <div class="col-md-6 text-center text-md-start">
-                              <p class="copy-text"> © 2025 <strong>DPhone</strong> Thiết kế <i class="fa fa-heart"
-                                  aria-hidden="true"></i> bởi <a class="company-name" href="https://themeforest.net/user/codecarnival/portfolio">
+                              <p class="copy-text"> © 2025 <strong>DPhone</strong> Thiết kế <i 
+                                  aria-hidden="true"><FaHeart/></i> bởi <a class="company-name" href="/">
                                       <strong> Thùy Dương </strong></a>.</p>
                           </div>
                       </div>
