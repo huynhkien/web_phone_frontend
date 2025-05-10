@@ -42,7 +42,7 @@ const Header = () => {
                             <ul>
                                 <li><a href="/"><i className="fa fa-phone"></i> +012 3456 789</a></li>
                                 <li><a href="/"><i className="fa fa-envelope-o"></i> thuyduong@gmail.com</a></li>
-                                <li><a href={path.LOGIN}><i className="fa fa-user"></i> Tài khoản</a></li>
+                                <li><a href={`/${path.LOGIN}`}><i className="fa fa-user"></i> Tài khoản</a></li>
                             </ul>
                         </div>
                     </div>

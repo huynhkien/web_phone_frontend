@@ -10,7 +10,7 @@ const Fashion = () => {
         <div className="row justify-content-center align-items-center h-100">
           <div className="col-12 text-center">
             <h2 className="title">
-              <span>HDuong</span> Chuyên Cung Cấp Các Dòng sản phẩm chất lượng
+              <span>TDuong</span> Chuyên Cung Cấp Các Dòng sản phẩm chất lượng
             </h2>
             <a
               href="shop-left-sidebar.html"
